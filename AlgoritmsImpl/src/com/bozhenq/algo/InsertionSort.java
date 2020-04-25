@@ -6,7 +6,17 @@ public class InsertionSort {
      * @param <T>  type of massive elements, should extends from Comparable
      */
     public static <T extends Comparable<T>> void sortByInsertion(T[] mass) {
-        for (int i = 1; i < mass.length; i++) {
+        sortByInsertionForMerge(mass,0,mass.length-1);
+    }
+
+    /**
+     * @param mass massive for sorting operation
+     * @param <T>  type of massive elements, should extends from Comparable
+     * @param start index of start element for sort
+     * @param end index of end element for sort that included in sort
+     */
+    public static <T extends Comparable<T>> void sortByInsertionForMerge(T[] mass, int start, int end) {
+        for (int i = start; i <= end; i++) {
             T key = mass[i]; // Get the key element for current iteration
             int j = i - 1; // cursor for moving from sorted array to find place for insert key element
             while (j >= 0 && mass[j].compareTo(key) > 0) { // while key element smaller that mass element

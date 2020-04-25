@@ -1,9 +1,10 @@
 package com.bozhenq.algo;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class MergeSort {
+
+    private static final int MERGE_CONST = 3;
 
     /**
      * @param mass   sorting massive
@@ -95,5 +96,23 @@ public class MergeSort {
             j++;
         }
         return false;
+    }
+
+    /**
+     * @param mass   sorting massive
+     * @param start  start element index for sort
+     * @param end    end element index for sort
+     * @param tClass class elements of sorting massive
+     * @param <T>    Type of massive elements, should extends from Comparable
+     */
+    public static <T extends Comparable<T>> void sortByMergeWithInsert(T[] mass, int start, int end, Class<T> tClass) {
+        if (start - end > MERGE_CONST) {
+            int middle = (start + end) / 2; // find middle element
+            sortByMergeWithInsert(mass, start, middle, tClass); // recurs for mass[start.. middle], after this we have ordered massive on this position
+            sortByMergeWithInsert(mass, middle + 1, end, tClass); //recurs for mass [middle+1.. end], after this we have ordered massive on this position
+            merge(mass, start, middle, end, tClass); // merge this massive's
+        } else {
+            InsertionSort.sortByInsertionForMerge(mass, start, end);
+        }
     }
 }
